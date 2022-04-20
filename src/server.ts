@@ -16,6 +16,12 @@ class ServerBootstrap {
     this.app.use(morgan("dev"));
     this.app.use(cors());
 
+    this.app.use("/api/hello", (req, res) => {
+      res.status(200).json({
+        message: "OK",
+      });
+    });
+
     this.Listen();
   }
 
