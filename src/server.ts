@@ -2,15 +2,17 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { UserRouter } from "./router/user.router";
+import { ConfigureServer } from "./config/config";
 
-class ServerBootstrap {
+class ServerBootstrap extends ConfigureServer {
   public app: express.Application = express();
-  private port: number = 8080;
+  private port: number = this.getNumberEnv("PORT");
 
   /**
    * ! constructor defined for listen server
    */
   constructor() {
+    super();
     // * setup server
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
