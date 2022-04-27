@@ -1,4 +1,6 @@
 import * as dotenv from "dotenv";
+import { DataSource, DataSourceOptions } from "typeorm";
+import { AppDataSource } from "./data.source";
 
 export abstract class ConfigureServer {
   constructor() {
@@ -31,5 +33,15 @@ export abstract class ConfigureServer {
     }
 
     return "." + arrEnv.join(".");
+  }
+
+  public get TypeORMConfig(): DataSourceOptions {
+    return {
+      type: "mysql",
+    };
+  }
+
+  get startConnection(): Promise<DataSource> {
+    return AppDataSource.initialize();
   }
 }
